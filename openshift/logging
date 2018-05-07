@@ -1,0 +1,31 @@
+# Curl from curator pod to elasticsearch
+
+sh-4.2$ curl https://logging-es:9200/ --cert $ES_CLIENT_CERT --cacert $ES_CA --key $ES_CLIENT_KEY
+{
+  "name" : "logging-es-data-master-pqvuuqfb",
+  "cluster_name" : "logging-es",
+  "cluster_uuid" : "kHVF_ORBQvSVWVZW5cCMmw",
+  "version" : {
+    "number" : "2.4.4",
+    "build_hash" : "b3c481152d951ecbcd1abd2f57b7ef6907ad2ff1",
+    "build_timestamp" : "2017-01-18T03:01:12Z",
+    "build_snapshot" : false,
+    "lucene_version" : "5.5.2"
+  },
+  "tagline" : "You Know, for Search"
+}
+sh-4.2$
+
+# Run curator manually from curator pod
+sh-4.2$ curator --host logging-es --use_ssl --certificate $ES_CA --client-cert $ES_CLIENT_CERT --client-key $ES_CLIENT_KEY show indices --all-indices
+2018-05-07 10:35:08,412 INFO      Job starting: show indices
+2018-05-07 10:35:08,412 INFO      Attempting to verify SSL certificate.
+2018-05-07 10:35:08,430 INFO      Matching all indices. Ignoring flags other than --exclude.
+2018-05-07 10:35:08,430 INFO      Action show will be performed on the following indices: [u'.kibana', u'.operations.2018.05.04', u'.operations.2018.05.07', u'.searchguard.logging-es-data-master-pqvuuqfb', u'project.logging.d482d77c-4fa0-11e8-a355-0acd91ccb564.2018.05.04', u'project.logging.d482d77c-4fa0-11e8-a355-0acd91ccb564.2018.05.07']
+2018-05-07 10:35:08,431 INFO      Matching indices:
+.kibana
+.operations.2018.05.04
+.operations.2018.05.07
+.searchguard.logging-es-data-master-pqvuuqfb
+project.logging.d482d77c-4fa0-11e8-a355-0acd91ccb564.2018.05.04
+project.logging.d482d77c-4fa0-11e8-a355-0acd91ccb564.2018.05.07
